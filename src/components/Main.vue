@@ -21,10 +21,7 @@
 <script>
 
 export default {
-    name:'Main',
-    components:{
-       
-    }
+    name:'Main'
 }
 </script>
 <style lang="scss" scoped>
@@ -37,6 +34,7 @@ export default {
             display: flex;
             padding: 0;
             margin: 0;
+            margin-bottom: 1vw;
             justify-content: space-around;
             list-style:none;
         }

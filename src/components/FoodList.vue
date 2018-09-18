@@ -13,11 +13,13 @@
               <span>好评率{{food.rating}}%</span>
             </p>
             <span class="price">￥{{food.price}}</span>
+            <img class="sub-img" @click="sub" v-show="show" src="../assets/img/jian.svg" alt="">
+            <span class="goods-num" v-show="show" >{{goodsNum}}</span>
+            <img class="add-img" @click="add" src="../assets/img/jia.svg" alt="">
           </div>
-          <img class="add-img" src="../assets/img/jia.svg" alt="">
         </div>
-    </div>
-    </div>
+        </div>
+        </div>
     </div>
 </template>
 <script>
@@ -25,6 +27,10 @@ import Bscroll from'better-scroll'
 export default {
     name:'FoodList',
     props:['changeActiveTabIndex'],
+    data:()=>({
+      goodsNum:1,
+      show:true
+    }),
     computed: {
     goods() {
       return this.$store.state.goods.goods
@@ -32,23 +38,6 @@ export default {
     },
     offsetTopList() {
       let offsetTopList = []
-      const tabs = document.querySelectorAll('.food-tab')
-      for (let i = 0; i < tabs.length; i++) {
-        offsetTopList.push(tabs[i].offsetTop - tabs[0].offsetTop)
-      }
-      return offsetTopList
-    },
-  mounted() {
-    this.$nextTick(() => {
-      this.scroll = new Bscroll(this.$refs.wrapper, { probeType: 3 })
-      this.scroll.on('scroll', pos => {
-        this.changeActiveTabIndex(this.currentIndex(-pos.y))
-      })
-    })
-  },
-  offsetTopList() {
-      let offsetTopList = []
-      console.log(offsetTopList.length);
       const tabs = document.querySelectorAll('.food-tab')
       for (let i = 0; i < tabs.length; i++) {
         offsetTopList.push(tabs[i].offsetTop - tabs[0].offsetTop)
@@ -72,6 +61,12 @@ export default {
           return i
         }
       }
+    },
+    add(){
+      this.$data.goodsNum = this.$data.goodsNum*1 + 1
+    },
+    sub(){
+      this.$data.goodsNum = this.$data.goodsNum*1 - 1
     }
   }
 }
@@ -88,12 +83,12 @@ export default {
      >div > div {
         display: flex;
         height: 40vw;
-        font-size: 8px;
+        font-size: 4vw;
         img{
             width:114px;
             height: 114px;
         }
-     }
+    }
     }
     h3{
         margin: 0;
@@ -105,12 +100,31 @@ export default {
         margin: 0;
     }
     .p1{
+        width: 180px;
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
     }
     .add-img{
-        widows: 20vw;
+       width: 6vw;
+       height: 6vw;
+    }
+    .price{
+      margin-top: -10vw;
+      margin-left: 5vw;
+      margin-right: 5vw;
+      font-size: 6vw;
+      color:red;
+    }
+    .sub-img{
+      width: 6vw;
+      height: 6vw;
+    }
+    .goods-num{
+      line-height: 6vw;
+      font-size: 6vw;
+      width: 5vw;
+      margin:0 2vw;
     }
  }
 </style>
